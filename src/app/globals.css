@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --bg: #f2f6f4;
+  --ink: #13242a;
+  --muted: #5c6f77;
+  --surface: #ffffff;
+  --line: #d6e1dd;
+  --brand: #0f766e;
+  --brand-strong: #0c5f59;
+  --sun: #e7c06b;
+}
+
+body {
+  @apply antialiased;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(231, 192, 107, 0.24) 0%, rgba(231, 192, 107, 0) 28%),
+    radial-gradient(circle at 88% 8%, rgba(15, 118, 110, 0.2) 0%, rgba(15, 118, 110, 0) 26%),
+    linear-gradient(180deg, #f9fbfa 0%, var(--bg) 48%, #eef4f1 100%);
+  color: var(--ink);
+}
+
+main {
+  @apply mx-auto max-w-7xl px-4 py-8;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 251, 250, 0.92) 100%);
+  border: 1px solid var(--line);
+  @apply rounded-2xl shadow-sm;
+}
+
+.headline {
+  @apply text-3xl font-bold tracking-tight;
+}
+
+.subline {
+  color: var(--muted);
+  @apply mt-1 text-sm;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-strong) 100%);
+  @apply inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold text-white transition-all duration-200;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px -14px rgba(15, 118, 110, 0.8);
+}
+
+.btn-secondary {
+  border: 1px solid #c6d7d2;
+  background: linear-gradient(180deg, #ffffff 0%, #f5faf8 100%);
+  color: #17303a;
+  @apply inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold transition-all duration-200;
+}
+
+.btn-secondary:hover {
+  border-color: #97b6ae;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px -16px rgba(19, 36, 42, 0.55);
+}
+
+.fade-up {
+  animation: fadeUp 420ms ease-out both;
+}
+
+.fade-up-delayed {
+  animation: fadeUp 640ms ease-out both;
+}
+
+.three-d-stage {
+  position: relative;
+  min-height: 420px;
+  perspective: 1400px;
+}
+
+.three-d-layers {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  transform-style: preserve-3d;
+  transition: transform 260ms ease;
+}
+
+.three-d-backdrop,
+.three-d-grid,
+.three-d-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  pointer-events: none;
+}
+
+.three-d-backdrop {
+  background: linear-gradient(130deg, rgba(19, 36, 42, 0.88), rgba(15, 118, 110, 0.72));
+  transform: translateZ(-120px) scale(0.96);
+  filter: blur(0.4px);
+}
+
+.three-d-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  transform: translateZ(-70px) scale(0.98);
+  opacity: 0.8;
+}
+
+.three-d-glow {
+  background: radial-gradient(circle at 70% 35%, rgba(231, 192, 107, 0.3), transparent 38%);
+  transform: translateZ(-30px);
+}
+
+.three-d-hero {
+  position: relative;
+  z-index: 3;
+  padding: 22px;
+  transform: translateZ(76px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 250, 249, 0.94));
+  animation: floatHero 5.6s ease-in-out infinite;
+}
+
+.three-d-stat {
+  position: relative;
+  z-index: 3;
+  padding: 16px;
+  transform: translateZ(56px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(250, 252, 251, 0.95));
+  animation: floatCard 5.2s ease-in-out infinite;
+}
+
+.three-d-stat:nth-of-type(3) { animation-delay: 140ms; }
+.three-d-stat:nth-of-type(4) { animation-delay: 280ms; }
+.three-d-stat:nth-of-type(5) { animation-delay: 420ms; }
+.three-d-stat:nth-of-type(6) { animation-delay: 560ms; }
+
+@media (min-width: 840px) {
+  .three-d-layers {
+    grid-template-columns: 1.5fr repeat(4, minmax(120px, 1fr));
+    align-items: stretch;
+  }
+
+  .three-d-hero {
+    grid-column: 1 / span 2;
+  }
+}
+
+@media (max-width: 839px) {
+  .three-d-stage {
+    min-height: auto;
+  }
+
+  .three-d-layers {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .three-d-hero {
+    grid-column: 1 / -1;
+  }
+}
+
+@keyframes floatCard {
+  0%,
+  100% { transform: translateZ(56px) translateY(0); }
+  50% { transform: translateZ(66px) translateY(-5px); }
+}
+
+@keyframes floatHero {
+  0%,
+  100% { transform: translateZ(76px) translateY(0); }
+  50% { transform: translateZ(88px) translateY(-7px); }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
